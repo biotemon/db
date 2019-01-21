@@ -1,2 +1,2 @@
-# db
-Reference databases
+# Reference databases
+Reference database for taxonomy analysis.
