@@ -27,7 +27,7 @@ taxonomyXcounts<-taxonomyXcounts[!(taxonomyXcounts$SUPERKINGDOM=="Unknown"),]
 
 desired_order = c("SETDESIREDBARORDERHERE")
 sample_names = c("SETSAMPLENAMESHERE")
-samples <- c("SETSAMPLENUMBERSHERE")
+samples <- c(SETSAMPLENUMBERSHERE)
 
 #Definition of my_level
 #my_level ==> Superkingdom level 1
