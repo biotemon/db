@@ -319,20 +319,22 @@ simple_color_vec <- c(simple_color_vecA,simple_color_vecB,simple_color_vecC)
 simple_absolute_melt$sample_names = factor(simple_absolute_melt$sample_names,levels = desired_order)
 simple_relative_melt$sample_names = factor(simple_relative_melt$sample_names,levels = desired_order)
 
-pdf("taxonomy_abs_cutoff_SETTHRESHOLDHERE.pdf", width=12, height=7)
-ggplot(data = simple_absolute_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=1)) + xlab("Treatments")
+numtaxa = length(levels(simple_absolute_melt$variable))
+
+pdf("taxonomy_abs_cutoff_SETTHRESHOLDHERE.pdf", width=SETWIDTHHERE, height=SETHEIGHTHERE)
+ggplot(data = simple_absolute_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=ifelse(numtaxa>25,2,1))) + xlab("Treatments")
 dev.off()
 
-pdf("taxonomy_rel_cutoff_SETTHRESHOLDHERE.pdf", width=10, height=8)
-ggplot(data = simple_relative_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) +  scale_colour_manual("black") + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Proportion of Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=1)) + xlab("Treatments")
+pdf("taxonomy_rel_cutoff_SETTHRESHOLDHERE.pdf", width=SETWIDTHHERE, height=SETHEIGHTHERE)
+ggplot(data = simple_relative_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) +  scale_colour_manual("black") + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Proportion of Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=ifelse(numtaxa>25,2,1))) + xlab("Treatments")
 dev.off()
 
-svg("taxonomy_abs_cutoff_SETTHRESHOLDHERE.svg", width=12, height=7)
-ggplot(data = simple_absolute_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=1)) + xlab("Treatments")
+svg("taxonomy_abs_cutoff_SETTHRESHOLDHERE.svg", width=SETWIDTHHERE, height=SETHEIGHTHERE)
+ggplot(data = simple_absolute_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=ifelse(numtaxa>25,2,1))) + xlab("Treatments")
 dev.off()
 
-svg("taxonomy_rel_cutoff_SETTHRESHOLDHERE.svg", width=10, height=8)
-ggplot(data = simple_relative_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) +  scale_colour_manual("black") + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Proportion of Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=1)) + xlab("Treatments")
+svg("taxonomy_rel_cutoff_SETTHRESHOLDHERE.svg", width=SETWIDTHHERE, height=SETHEIGHTHERE)
+ggplot(data = simple_relative_melt, aes(x = sample_names, y = value, fill = variable)) + geom_bar(colour="black", stat = "identity", size = 0.25) + theme_classic() + theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1),axis.text.y = element_text(color="black")) +  scale_colour_manual("black") + scale_fill_manual(values = simple_color_vec) + scale_y_continuous(name="Proportion of Read Counts", labels = scales::comma, expand = c(0, 0)) + guides(fill=guide_legend(ncol=ifelse(numtaxa>25,2,1))) + xlab("Treatments")
 dev.off()
 
 #Write a csv file with the actual numbers shown in the simplified plots.
