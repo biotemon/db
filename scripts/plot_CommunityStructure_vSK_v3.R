@@ -340,3 +340,33 @@ dev.off()
 #Write a csv file with the actual numbers shown in the simplified plots.
 write.csv(simple_absolute_melt, file = "simple_absolute_melt.csv")
 write.csv(simple_relative_melt, file = "simple_relative_melt.csv")
+
+############################################################################
+#                       DIVERSITY INDEX CALCULATION                        #
+############################################################################
+
+taxonomyXcounts2 <- read.delim("mgrast_raw_counts.txt_taxonomyXcounts.txt")
+
+taxonomyXcounts2$concatax <- col_concat(taxonomyXcounts[,7:15])
+
+temp <- taxonomyXcounts2[,c('ASSEMBLY_ID', 'READ_COUNTS', 'concatax')]
+
+#Aggregating rows of identical taxonomic lineage for a given sample observation
+temp2 <- temp %>% group_by(ASSEMBLY_ID, concatax) %>% summarise(READ_COUNTS = sum(READ_COUNTS)) 
+
+temp2wide <- pivot_wider(temp2, names_from = ASSEMBLY_ID, values_from = READ_COUNTS)
+
+Richness <- colSums(!is.na(temp2wide))
+Richness <- richness[-1]
+
+mat <- as.matrix(temp2wide[,-1] %>% mutate_if(is.numeric, replace_na, replace = 0))
+
+p_matrix <- t(t(mat)/colSums(mat)) #This is also temp2wide but relative values re. sample -> counts(i,j)/total(j) species = i, sample = j
+
+Shannon_index <- colSums(p_matrix * log(p_matrix + 0.0000000000000001))*(-1)
+
+Evenness <-  Shannon_index/log(Richness)
+
+DiversityIndexTable <- data.frame(sample_names, Richness, Shannon_index, Evenness)
+
+write.csv(DiversityIndexTable, file = "DiversityIndexTable.csv")
