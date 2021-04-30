@@ -358,7 +358,7 @@ temp2 <- temp %>% group_by(ASSEMBLY_ID, concatax) %>% summarise(READ_COUNTS = su
 temp2wide <- pivot_wider(temp2, names_from = ASSEMBLY_ID, values_from = READ_COUNTS)
 
 Richness <- colSums(!is.na(temp2wide))
-Richness <- richness[-1]
+Richness <- Richness[-1]
 
 mat <- as.matrix(temp2wide[,-1] %>% mutate_if(is.numeric, replace_na, replace = 0))
 
