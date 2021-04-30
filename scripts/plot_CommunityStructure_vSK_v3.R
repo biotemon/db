@@ -12,6 +12,7 @@ library(tidyr)
 library(ggplot2)
 library(RColorBrewer)
 library(data.table)
+library(assertr)
 
 #Threshold of lowest percentage to show as an individual taxonomy
 TH = SETTHRESHOLDHERE
