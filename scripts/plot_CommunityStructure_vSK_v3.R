@@ -348,7 +348,7 @@ write.csv(simple_relative_melt, file = "simple_relative_melt.csv")
 
 taxonomyXcounts2 <- read.delim("mgrast_raw_counts.txt_taxonomyXcounts.txt")
 
-taxonomyXcounts2$concatax <- col_concat(taxonomyXcounts[,7:15])
+taxonomyXcounts2$concatax <- col_concat(taxonomyXcounts2[,7:15])
 
 temp <- taxonomyXcounts2[,c('ASSEMBLY_ID', 'READ_COUNTS', 'concatax')]
 
