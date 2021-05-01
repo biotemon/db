@@ -346,6 +346,8 @@ write.csv(simple_relative_melt, file = "simple_relative_melt.csv")
 #                       DIVERSITY INDEX CALCULATION                        #
 ############################################################################
 
+# Reference: http://www.tiem.utk.edu/~gross/bioed/bealsmodules/shannonDI.html
+
 taxonomyXcounts2 <- read.delim("mgrast_raw_counts.txt_taxonomyXcounts.txt")
 
 taxonomyXcounts2$concatax <- col_concat(taxonomyXcounts2[,7:15])
